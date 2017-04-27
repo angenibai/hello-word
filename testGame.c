@@ -58,13 +58,44 @@ int main (int argc, char *argv[]) {
 	printf ("All tests passed, you are Awesome!\n");
 }
 
+// Angeni
 void testNewGame (void) {
+
+	printf (" Testing newGame\n");
+
+	// create game
 	int disciplines[] = DEFAULT_DISCIPLINES;
 	int dice[] = DEFAULT_DICE;
 	Game g = newGame (disciplines, dice);
+	// no turns yet
+	assert (getTurnNumber (g) == -1);
+	// no one should have most ARCs
+	assert (getMostARCS (g) == NO_ONE);
+	// same with most publications
+	assert (getMostPublications (g) == NO_ONE);
+	// no one's turn
+	assert (getWhoseTurn (g) == NO_ONE);
+	// campuses are allocated correctly
+	assert (getCampus (g, "") == UNI_A);
+	assert (getCampus (g, "L") == VACANT_VERTEX);
 
+	printf (" ...newGame passes!\n");
+}
+
+void testMakeAction (void) {
+
+	printf (" Testing makeAction\n");
+
+	// create game
+	int disciplines[] = DEFAULT_DISCIPLINES;
+	int dice[] = DEFAULT_DICE;
+	Game g = newGame (disciplines, dice);
+	// no turns yet
 	assert (getTurnNumber(g) == -1);
-	
+	// 
+
+	printf (" ...makeAction passes!\n");
+
 }
 
 void testGetCampus (void) {
