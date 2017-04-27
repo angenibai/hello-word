@@ -90,12 +90,79 @@ void testMakeAction (void) {
 	int disciplines[] = DEFAULT_DISCIPLINES;
 	int dice[] = DEFAULT_DICE;
 	Game g = newGame (disciplines, dice);
-	// no turns yet
-	assert (getTurnNumber(g) == -1);
-	// 
+	
+	throwDice (g, 6); // UNI_A gets MJ. UNI_A's turn
+	action a;
+	a.actionCode = OBTAIN_ARC;
+	a.destination = "L";
+	makeAction (g, a); // UNI_A builds ARC
+	assert (getArc (g, "L") == ARC_A); // checks that the action has happened
+	// I should continue this
 
 	printf (" ...makeAction passes!\n");
 
+}
+
+void testGetMostARCs (void) {
+
+	printf (" Testing getMostARCS\n");
+
+	// create game
+	int disciplines[] = DEFAULT_DISCIPLINES;
+	int dice[] = DEFAULT_DICE;
+	Game g = newGame (disciplines, dice);
+
+	// at this point no one has any
+	assert (getMostARCS (g) == NO_ONE);
+	// start the turns
+	throwDice (g, 11); // UNI_A gets MTV
+	action a;
+	a.actionCode = OBTAIN_ARC;
+	a.destination = "L";
+	makeAction (g, a); // UNI_A builds ARC
+	assert (getMostARCS (g) == UNI_A);
+
+	throwDice (g, 9); // UNI_B gets B?
+	a.actionCode = OBTAIN_ARC;
+	a.destination = "RRLRLL";
+	makeAction (g, a); // UNI_B builds ARC
+
+	throwDice (g, 5); // UNI_B gets BPS
+	a.actionCode = PASS;
+	makeAction (g, a); // UNI_C passes
+
+	throwDice (g, 9); // UNI_B gets B?
+	makeAction (g, a); // UNI_A passes
+
+	throwDice (g, 5); // UNI_B gets BPS
+	a.actionCode = OBTAIN_ARC;
+	a.destination = "RRLRLLL";
+	makeAction (g, a); // UNI_B builds ARC
+	assert (getMostARCS (g) == UNI_B);
+
+	printf (" ... makeAction passed\n");
+}
+
+void testGetTurnNumber (void) {
+
+	printf (" Testing getTurnNumber\n");
+
+	// create game
+	int disciplines[] = DEFAULT_DISCIPLINES;
+	int dice[] = DEFAULT_DICE;
+	Game g = newGame (disciplines, dice);
+
+	assert (getTurnNumber (g) == -1);
+	throwDice (g, 7);
+	assert (getTurnNumber (g) == 0);
+	throwDice (g, 11);
+	assert (getTurnNumber (g) == 1);
+	throwDice (g, 3);
+	assert (getTurnNumber (g) == 2);
+	throwDice (g, 9);
+	assert (getTurnNumber (g) == 3);
+
+	printf (" .... getTurnNumber passed\n");
 }
 
 void testGetCampus (void) {

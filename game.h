@@ -183,7 +183,7 @@ int getWhoseTurn (Game g);
 // VACANT_VERTEX)
 int getCampus(Game g, path pathToVertex);
 
-// the contents of the given edge (ie ARC code or vacent ARC)
+// the contents of the given edge (ie ARC code or vacant ARC)
 int getARC(Game g, path pathToEdge);
 
 // returns TRUE if it is legal for the current
