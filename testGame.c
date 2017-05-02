@@ -23,7 +23,7 @@ void testNewGame (void); //Angeni
 void testMakeAction (void); //Angeni
 //void testThrowDice (void); //Christina
 
-//void testGetDiscipline (void); //Angeni
+void testGetDiscipline (void); //Angeni
 //void testGetDiceValue (void); //Christina - NOT DONE
 void testGetMostARCs (void); //Angeni
 void testGetMostPublications (void); //Christina
@@ -31,18 +31,18 @@ void testGetTurnNumber (void); //Angeni
 void testGetWhoseTurn (void); //Christina - DONE
 void testGetCampus (void); //Angeni
 //void testGetARC (void); //Christina
-/*
-void testIsLegalAction (void); //Christina
 
-void testgetKPIPoints (void); //Angeni
-void testGetARCs (void); //Christina
+//void testIsLegalAction (void); //Christina
+
+void testGetKPIpoints (void); //Angeni
+//void testGetARCs (void); //Christina
 void testGetGO8s (void); //Angeni
 void testGetCampuses (void); //Angeni
-void testGetIPs (void); //Christina
-void testGetPublications (void); //Christina
+//void testGetIPs (void); //Christina
+//void testGetPublications (void); //Christina
 void testGetStudents (void); //Angeni
-void testGetExchangeRate (void); //Christina
-*/
+//void testGetExchangeRate (void); //Christina
+
 
 int main (int argc, char *argv[]) {
 
@@ -53,7 +53,7 @@ int main (int argc, char *argv[]) {
 	testMakeAction(); //Angeni - started
 	//testThrowDice(); //Christina
 
-	//testGetDiscipline(); //Angeni
+	testGetDiscipline(); //Angeni - done
 	//testGetDiceValue(); //Christina - NOT DONE
 	testGetMostARCs(); //Angeni - DONE
 	testGetMostPublications(); //Christina
@@ -61,18 +61,18 @@ int main (int argc, char *argv[]) {
 	testGetWhoseTurn(); //Christina - DONE
 	testGetCampus(); //Angeni - done
 	//testGetARC(); //Christina
-	/*
-	testIsLegalAction(); //Christina
+	
+	//testIsLegalAction(); //Christina
 
-	testgetKPIPoints(); //Angeni
-	testGetARCs(); //Christina
+	testGetKPIpoints(); //Angeni
+	//testGetARCs(); //Christina
 	testGetGO8s(); //Angeni
 	testGetCampuses(); //Angeni
-	testGetIPs(); //Christina
-	testGetPublications(); //Christina
+	//testGetIPs(); //Christina
+	//testGetPublications(); //Christina
 	testGetStudents(); //Angeni
-	testGetExchangeRate(); //Christina
-	*/
+	//testGetExchangeRate(); //Christina
+	
 
 	printf ("All tests passed, you are Awesome!\n");
 
@@ -129,7 +129,7 @@ void testMakeAction (void) {
 	printf (" ...makeAction passes!\n");
 
 }
-/*
+
 // Angeni
 void testGetDiscipline (void) {
 
@@ -140,11 +140,11 @@ void testGetDiscipline (void) {
 	int dice[] = DEFAULT_DICE;
 	Game g = newGame (disciplines, dice);
 
-
+	assert (getDiscipline (g, 1) == STUDENT_MTV);
 
 	printf (" ... getDiscipline passes!\n");
 }
-*/
+
 
 /*
 //Christina
@@ -334,3 +334,78 @@ void testGetCampus (void) {
 }
 
 // Angeni
+void testGetKPIpoints (void) {
+
+	printf (" Testing getKPIpoints\n");
+
+	int disciplines[] = DEFAULT_DISCIPLINES;
+	int dice[] = DEFAULT_DICE;
+	Game g = newGame (disciplines, dice);
+
+	assert (getKPIpoints (g, UNI_A) == 20);
+	assert (getKPIpoints (g, UNI_B) == 20);
+	assert (getKPIpoints (g, UNI_B) == 20);
+
+
+	disposeGame (g);
+
+	printf (" ... getKPIpoints passed\n");
+}
+
+// Angeni
+void testGetGO8s (void) {
+
+	printf (" Testing getGO8s\n");
+
+	int disciplines[] = DEFAULT_DISCIPLINES;
+	int dice[] = DEFAULT_DICE;
+	Game g = newGame (disciplines, dice);
+
+	assert (getGO8s (g, UNI_A) == 0);
+	assert (getGO8s (g, UNI_B) == 0);
+	assert (getGO8s (g, UNI_C) == 0);
+
+	disposeGame (g);
+
+	printf ("... getGO8s passed\n");
+}
+
+// Angeni
+void testGetCampuses (void) {
+
+	printf (" Testing getCampuses\n");
+
+	int disciplines[] = DEFAULT_DISCIPLINES;
+	int dice[] = DEFAULT_DICE;
+	Game g = newGame (disciplines, dice);
+
+	assert (getCampuses (g, UNI_A) == 2);
+	assert (getCampuses (g, UNI_B) == 2);
+	assert (getCampuses (g, UNI_C) == 2);
+
+	disposeGame (g);
+
+	printf ("... getCampuses passed\n");
+}
+
+// Angeni
+void testGetStudents (void) {
+
+	printf (" Testing getCampuses\n");
+
+	int disciplines[] = DEFAULT_DISCIPLINES;
+	int dice[] = DEFAULT_DICE;
+	Game g = newGame (disciplines, dice);
+
+	assert (getStudents (g, UNI_A, STUDENT_BPS) == 3);
+	assert (getStudents (g, UNI_B, STUDENT_BQN) == 3);
+	assert (getStudents (g, UNI_C, STUDENT_MTV) == 1);
+	assert (getStudents (g, UNI_A, STUDENT_MJ) == 1);
+	assert (getStudents (g, UNI_B, STUDENT_MMONEY) == 1);
+	assert (getStudents (g, UNI_C, STUDENT_THD) == 0);
+
+	disposeGame (g);
+
+	printf ("... getCampuses passed\n");	
+
+}
