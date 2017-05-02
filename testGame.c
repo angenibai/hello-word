@@ -129,6 +129,7 @@ void testMakeAction (void) {
 	printf (" ...makeAction passes!\n");
 
 }
+/*
 // Angeni
 void testGetDiscipline (void) {
 
@@ -143,6 +144,7 @@ void testGetDiscipline (void) {
 
 	printf (" ... getDiscipline passes!\n");
 }
+*/
 
 /*
 //Christina
